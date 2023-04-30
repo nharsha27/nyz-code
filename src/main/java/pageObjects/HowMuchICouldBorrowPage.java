@@ -1,12 +1,15 @@
 package pageObjects;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.math.BigDecimal;
 import java.time.Duration;
 
 public class HowMuchICouldBorrowPage {
@@ -35,68 +38,84 @@ public class HowMuchICouldBorrowPage {
     private By StartOver = By.cssSelector("button[class='start-over']");
     private By ErrorText = By.cssSelector("div[class='borrow__error__text']");
 
-    public HowMuchICouldBorrowPage(WebDriver driver) {
+    public HowMuchICouldBorrowPage(WebDriver driver)
+    {
+        ChromeOptions option = new ChromeOptions();
+        option.addArguments("--remote-allow-origins=*");
+        WebDriverManager.chromedriver().setup();
         this.driver = driver;
     }
 
-    public  void selectApplicationType(String applicationType){
-        if(applicationType.equalsIgnoreCase("Single")){
+    public  void selectApplicationType(String applicationType)
+    {
+        if(applicationType.equalsIgnoreCase("Single"))
+        {
             WebElement singleType = driver.findElement(Single);
             singleType.click();
-        }else {
+        }
+        else
+        {
             WebElement jointType = driver.findElement(Joint);
             jointType.click();
         }
     }
     public  void setNumber_of_dependents(int dependents){
         WebElement numberOfDependents = driver.findElement(Number_of_dependents);
-        numberOfDependents.sendKeys("dependents");
+        numberOfDependents.sendKeys(String.valueOf(dependents));
     }
-    public  void selectPropertyType(String propertyType){
+    public  void selectPropertyType(String propertyType)
+    {
         if(propertyType.equalsIgnoreCase("Home To Live In")){
-        WebElement homeToLiveIn = driver.findElement(this.homeToLiveIn);
-        homeToLiveIn.click();
-    }else {
-            WebElement residentialInvestment = driver.findElement(this.residentialInvestment);
-            residentialInvestment.click();
+        WebElement homeVal = driver.findElement(homeToLiveIn);
+            homeVal.click();
+    }
+        else
+        {
+            WebElement residentialVal = driver.findElement(residentialInvestment);
+            residentialVal.click();
         }
     }
-    public  void enterYourAnnualIncome(int annualIncome){
-        WebElement yourAnnualIncome = driver.findElement(this.yourAnnualIncome);
-        yourAnnualIncome.sendKeys("annualIncome");
+
+    /**
+     * This block shares your monthly anual incode
+     * @param enteredIncome entered income
+     */
+    public  void enterYourAnnualIncome(BigDecimal enteredIncome){
+        WebElement annualIncome = driver.findElement(yourAnnualIncome);
+        annualIncome.sendKeys(String.valueOf(enteredIncome));
     }
 
     public  void enterYourAnnualOtherIncome(int annualOtherIncome){
         WebElement yourAnnualOtherIncome = driver.findElement(yourAnnualIncome);
-        yourAnnualOtherIncome.sendKeys("annualOtherIncome");
+        yourAnnualOtherIncome.sendKeys(String.valueOf(annualOtherIncome));
     }
 
     public  void enterMonthlyLivingExpenses(int monthlyExpense){
         WebElement monthlyExpenses = driver.findElement(monthlyLivingExpenses);
-        monthlyExpenses.sendKeys("monthlyExpense");
+        monthlyExpenses.sendKeys(String.valueOf(monthlyExpense));
     }
     public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
        WebElement monthlyExpense = driver.findElement(monthlyLivingExpenses);
         return  monthlyExpense.getAttribute("value").equals("0") ;
     }
     public  void enterCurrentHomeLoanMonthlyRepayments(int homeLoanRepayments){
-        WebElement currentHomeLoanMonthlyRepayments = driver.findElement(this.currentHomeLoanMonthlyRepayments);
-        currentHomeLoanMonthlyRepayments.sendKeys("homeLoanRepayments");
+        WebElement currentHomeLoanRepayment = driver.findElement(this.currentHomeLoanMonthlyRepayments);
+        currentHomeLoanRepayment.sendKeys(String.valueOf(homeLoanRepayments));
     }
 
     public  void enterOtherLoanMonthlyRepayments(int otherLoanRepayments){
         WebElement otherLoanMonthlyRepayments = driver.findElement(Other_loan_monthly_repayments);
-        otherLoanMonthlyRepayments.sendKeys("otherLoanRepayments");
+        otherLoanMonthlyRepayments.sendKeys(String.valueOf(otherLoanRepayments));
     }
 
     public  void enterOtherMonthlyCommitments(int otherMonthlyCommitments){
         WebElement monthlyCommitments = driver.findElement(Other_monthly_commitments);
-        monthlyCommitments.sendKeys("otherMonthlyCommitments");
+        monthlyCommitments.sendKeys(String.valueOf(otherMonthlyCommitments));
     }
 
     public  void enterTotalCreditCardLimits(int totalCreditCardLimits){
         WebElement totalCreditCardLimit = driver.findElement(Other_loan_monthly_repayments);
-        totalCreditCardLimit.sendKeys("totalCreditCardLimits");
+        totalCreditCardLimit.sendKeys(String.valueOf(totalCreditCardLimits));
     }
 
     public void clickWorkOutHowMuchICouldBorrowButton(){
@@ -131,7 +150,6 @@ public class HowMuchICouldBorrowPage {
     public void visibilityOfElementLocated(WebElement webElement) {
         setExplicitWait(100);
         wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
-
     }
 
         }

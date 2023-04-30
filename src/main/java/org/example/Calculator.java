@@ -32,6 +32,7 @@ public class Calculator {
         driver.manage().window().maximize();
         driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
         driver.findElement(By.cssSelector("label[for='application_type_single']")).click();
+        driver.findElement(By.cssSelector("label[for='borrow_type_investment']")).click();
         driver.findElement(By.cssSelector("select[title='Number of dependants']")).sendKeys("4");
         driver.findElement(By.cssSelector("input[aria-describedby$='q2q1i1 q2q1i2']")).sendKeys("80000");
         driver.findElement(By.cssSelector("input[aria-labelledby='q2q2']")).sendKeys("10000");
