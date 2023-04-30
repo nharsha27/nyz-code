@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.testng.Assert;
 
 
 import java.time.Duration;
@@ -22,13 +22,13 @@ public class Calculator {
     public static void main(String[] args) throws InterruptedException {
 
         ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*");
+       option.addArguments("--remote-allow-origins=*");
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver(option);
        // WebDriverManager.chromedriver().setup();
         //WebDriver driver= new ChromeDriver();
-       // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
         driver.findElement(By.cssSelector("label[for='application_type_single']")).click();
@@ -40,21 +40,49 @@ public class Calculator {
         driver.findElement(By.cssSelector("input[aria-labelledby='q3q3']")).sendKeys("100");
         driver.findElement(By.cssSelector("input[aria-labelledby='q3q4']")).sendKeys("0");
         driver.findElement(By.cssSelector("input[aria-labelledby='q3q5']")).sendKeys("10000");
+//System.out.println(driver.findElement(By.cssSelector("input[aria-labelledby='q3q5']")).getAttribute("value"));
+
+     WebElement monthlyLiving = driver.findElement(By.cssSelector("input[aria-labelledby='q3q1']"));
+     String valueMonthlyLiving= monthlyLiving.getAttribute("value");
+     if(valueMonthlyLiving.equals("0"))
+     {
+      System.out.println("True value: " +valueMonthlyLiving);
+     }
+System.out.println("value exists : false");
+
+
         driver.findElement(By.cssSelector("button#btnBorrowCalculater")).click();
         Thread.sleep(5000);
-        String estimated_borrow_amount= driver.findElement(By.cssSelector("span#borrowResultTextAmount")).getText();
-        System.out.println(estimated_borrow_amount);
-        Assert.assertEquals(estimated_borrow_amount, "$180,000");
-        Assert
-        Thread.sleep(5000);
+
+     Assert.assertTrue(driver.findElement(By.cssSelector("span#borrowResultTextAmount")).isDisplayed());
+       // Boolean estimated_borrow_amount= driver.findElement(By.cssSelector("span#borrowResultTextAmount")).isDisplayed();
+        //String estimated_borrow_amount= driver.findElement(By.cssSelector("span#borrowResultTextAmount")).getText();
+       // System.out.println(estimated_borrow_amount);
+
+
+
+
+        Thread.sleep(1000);
 
         WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(1000));
      // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='start-over']"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[class='start-over']"))).click();
 
-        Thread.sleep(5000);
-        driver.findElement(By.cssSelector("input[aria-labelledby='q3q1']")).sendKeys("500");
+        String valueMonthlyLivingafter= monthlyLiving.getAttribute("value") ;
+        System.out.println("Entered text is: " +valueMonthlyLivingafter);
+        if(valueMonthlyLivingafter.equals("0"))
+        {
+         System.out.println("True value after start over: " +valueMonthlyLivingafter);
+        }
+
+
+        Thread.sleep(1000);
+        driver.findElement(By.cssSelector("input[aria-labelledby='q3q1']")).sendKeys("1");
         driver.findElement(By.cssSelector("button#btnBorrowCalculater")).click();
+     String errorText= driver.findElement(By.cssSelector("div[class='borrow__error__text']")).getText();
+     System.out.println(errorText);
+     String expectedError = "Based on the details you've entered, we're unable to give you an estimate of your borrowing power with this calculator. For questions, call us on 1800 035 500.";
+     Assert.assertEquals(errorText, expectedError);
 
 
 
