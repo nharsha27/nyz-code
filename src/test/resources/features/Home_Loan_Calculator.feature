@@ -11,6 +11,6 @@
         Then  Borrowing estimate is displayed on the screen "<result>"
         Examples:
           | application type | Number of dependants | Property you would like to buy | Your annual income | Your annual other income | Monthly living expenses | Current home loan monthly repayments | Other loan monthly repayments | Other monthly commitments | Total Credit limits | result |
-          | "Sing"           | 2                    | "Home in"                      | 80000              | 10000                    | 500                     | 0                                    | 100                           | 0                         | 10000               | true   |
+          | "Single"         | 2                    | "Home in"                      | "80000"            | "10027"                  | "500"                   | "45"                                 | "100"                         | "50"                      | "10002"             | $281,000 |
 
 

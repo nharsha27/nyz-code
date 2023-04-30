@@ -37,12 +37,13 @@ public class HowMuchCouldIBorrowStepDefinition {
         driver.manage().window().maximize();
 
         driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
-        howMuchICouldBorrowPage = new HowMuchICouldBorrowPage(driver);
+
     }
 
-    @Given("I have entered person's following details: {string},  {int},  {string} ,{BigDecimal}, {int}, {int}, {int}, {int}, {int}, {int}")
-    public void i_have_entered_person_s_following_details(String applicationType, Integer NumberOfDependants, String propertyType, BigDecimal annualIncome, Integer annualOtherIncome, Integer MonthlyLivingExpenses, Integer CurrentHomeLoanMonthlyRepayments, Integer OtherLoanMonthlyRepayments, Integer OtherMonthlyCommitments, Integer TotalCreditCardLimits)
+    @Given("I have entered person's following details: {string},  {int},  {string} ,{string}, {string}, {string}, {string}, {string}, {string}, {string}")
+    public void i_have_entered_person_s_following_details(String applicationType, Integer NumberOfDependants, String propertyType, String annualIncome, String annualOtherIncome, String MonthlyLivingExpenses, String CurrentHomeLoanMonthlyRepayments, String OtherLoanMonthlyRepayments, String OtherMonthlyCommitments, String TotalCreditCardLimits)
     {
+        howMuchICouldBorrowPage = new HowMuchICouldBorrowPage(driver);
         howMuchICouldBorrowPage.selectApplicationType(applicationType);
         howMuchICouldBorrowPage.setNumber_of_dependents(NumberOfDependants);
         howMuchICouldBorrowPage.selectPropertyType(propertyType);
@@ -61,8 +62,10 @@ public class HowMuchCouldIBorrowStepDefinition {
     }
 
     @Then("Borrowing estimate is displayed on the screen {string}")
-    public void borrowing_estimate_is_displayed_on_the_screen(String input) {
-        Assert.assertEquals(howMuchICouldBorrowPage.showEstimatedAmountThatCanBeBorrowed(),true);
+    public void borrowing_estimate_is_displayed_on_the_screen(String input) throws InterruptedException {
+        Thread.sleep(5000);
+        String result = howMuchICouldBorrowPage.showEstimatedAmountThatCanBeBorrowed();
+        Assert.assertEquals(input,result);
     }
 
     @When("I click on start over button")

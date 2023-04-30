@@ -23,16 +23,16 @@ public class HowMuchICouldBorrowPage {
     private By Number_of_dependents = By.cssSelector("select[title='Number of dependants']");
     private By homeToLiveIn = By.cssSelector("label[for='borrow_type_home']");
     private By residentialInvestment = By.cssSelector("label[for='borrow_type_investment']");
-    private By yourAnnualIncome =By.cssSelector("input[aria-describedby$='q2q1i1 q2q1i2']");
+    private By yourAnnualIncomeBeforeTax =By.cssSelector("input[aria-describedby$='q2q1i1 q2q1i2']");
     private By yourAnnualOtherIncome =By.cssSelector("input[aria-labelledby='q2q2']");
     private By secondApplicantAnnualIncome  = By.cssSelector("input[aria-labelledby='q2q3']");
     private By secondApplicantOtherAnnualIncome  =By.cssSelector("input[aria-labelledby='q2q4']");
 
-    private By monthlyLivingExpenses = By.cssSelector("input[aria-labelledby='q2q2']");
-    private By currentHomeLoanMonthlyRepayments = By.cssSelector("input[aria-labelledby='q2q2']");
-    private By Other_loan_monthly_repayments = By.cssSelector("input[aria-labelledby='q2q2']");
-    private By Other_monthly_commitments = By.cssSelector("input[aria-labelledby='q2q2']");
-    private By Total_credit_card_limits = By.cssSelector("input[aria-labelledby='q2q2']");
+    private By monthlyLivingExpense = By.cssSelector("input[aria-labelledby='q3q1']");
+    private By homeLoanMonthlyRepayments = By.cssSelector("input[aria-labelledby='q3q2']");
+    private By otherLoanMonthlyRepayment = By.cssSelector("input[aria-labelledby='q3q3']");
+    private By otherMonthlyCommitments = By.cssSelector("input[aria-labelledby='q3q4']");
+    private By totalCreditCardLimit = By.cssSelector("input[aria-labelledby='q3q5']");
     private By WorkOutHowMuchICouldBorrowButton = By.cssSelector("button#btnBorrowCalculater");
     private By EstimatedBorrowAmount = By.cssSelector("span#borrowResultTextAmount");
     private By StartOver = By.cssSelector("button[class='start-over']");
@@ -65,10 +65,11 @@ public class HowMuchICouldBorrowPage {
     }
     public  void selectPropertyType(String propertyType)
     {
-        if(propertyType.equalsIgnoreCase("Home To Live In")){
+        if(propertyType.equalsIgnoreCase("Home To Live In"))
+        {
         WebElement homeVal = driver.findElement(homeToLiveIn);
             homeVal.click();
-    }
+        }
         else
         {
             WebElement residentialVal = driver.findElement(residentialInvestment);
@@ -80,42 +81,44 @@ public class HowMuchICouldBorrowPage {
      * This block shares your monthly anual incode
      * @param enteredIncome entered income
      */
-    public  void enterYourAnnualIncome(BigDecimal enteredIncome){
-        WebElement annualIncome = driver.findElement(yourAnnualIncome);
+    public  void enterYourAnnualIncome(String enteredIncome)
+    {
+        WebElement annualIncome = driver.findElement(yourAnnualIncomeBeforeTax);
         annualIncome.sendKeys(String.valueOf(enteredIncome));
     }
 
-    public  void enterYourAnnualOtherIncome(int annualOtherIncome){
-        WebElement yourAnnualOtherIncome = driver.findElement(yourAnnualIncome);
-        yourAnnualOtherIncome.sendKeys(String.valueOf(annualOtherIncome));
+    public  void enterYourAnnualOtherIncome(String annualOtherIncome)
+    {
+        WebElement yourAnnualOtherIncomeElement = driver.findElement(yourAnnualOtherIncome);
+        yourAnnualOtherIncomeElement.sendKeys(String.valueOf(annualOtherIncome));
     }
 
-    public  void enterMonthlyLivingExpenses(int monthlyExpense){
-        WebElement monthlyExpenses = driver.findElement(monthlyLivingExpenses);
-        monthlyExpenses.sendKeys(String.valueOf(monthlyExpense));
+    public  void enterMonthlyLivingExpenses(String monthlyExpense){
+        WebElement monthlyExpenseElement = driver.findElement(monthlyLivingExpense);
+        monthlyExpenseElement.sendKeys(monthlyExpense);
     }
-    public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
+    /*public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
        WebElement monthlyExpense = driver.findElement(monthlyLivingExpenses);
         return  monthlyExpense.getAttribute("value").equals("0") ;
-    }
-    public  void enterCurrentHomeLoanMonthlyRepayments(int homeLoanRepayments){
-        WebElement currentHomeLoanRepayment = driver.findElement(this.currentHomeLoanMonthlyRepayments);
-        currentHomeLoanRepayment.sendKeys(String.valueOf(homeLoanRepayments));
-    }
-
-    public  void enterOtherLoanMonthlyRepayments(int otherLoanRepayments){
-        WebElement otherLoanMonthlyRepayments = driver.findElement(Other_loan_monthly_repayments);
-        otherLoanMonthlyRepayments.sendKeys(String.valueOf(otherLoanRepayments));
+    }*/
+    public  void enterCurrentHomeLoanMonthlyRepayments(String homeLoanRepayment){
+        WebElement currentHomeLoanRepaymentElement = driver.findElement(homeLoanMonthlyRepayments);
+        currentHomeLoanRepaymentElement.sendKeys(String.valueOf(homeLoanRepayment));
     }
 
-    public  void enterOtherMonthlyCommitments(int otherMonthlyCommitments){
-        WebElement monthlyCommitments = driver.findElement(Other_monthly_commitments);
-        monthlyCommitments.sendKeys(String.valueOf(otherMonthlyCommitments));
+    public  void enterOtherLoanMonthlyRepayments(String otherLoanRepayments){
+        WebElement otherLoanMonthlyRepaymentElement = driver.findElement(otherLoanMonthlyRepayment);
+        otherLoanMonthlyRepaymentElement.sendKeys(String.valueOf(otherLoanRepayments));
     }
 
-    public  void enterTotalCreditCardLimits(int totalCreditCardLimits){
-        WebElement totalCreditCardLimit = driver.findElement(Other_loan_monthly_repayments);
-        totalCreditCardLimit.sendKeys(String.valueOf(totalCreditCardLimits));
+    public  void enterOtherMonthlyCommitments(String otherMonthlyComitVal){
+        WebElement monthlyCommitments = driver.findElement(otherMonthlyCommitments);
+        monthlyCommitments.sendKeys(String.valueOf(otherMonthlyComitVal));
+    }
+
+    public  void enterTotalCreditCardLimits(String totalCreditCardLimitVal){
+        WebElement totalCreditCardLimitElement = driver.findElement(totalCreditCardLimit);
+        totalCreditCardLimitElement.sendKeys(String.valueOf(totalCreditCardLimitVal));
     }
 
     public void clickWorkOutHowMuchICouldBorrowButton(){
@@ -123,12 +126,9 @@ public class HowMuchICouldBorrowPage {
             howMuchICouldBorrowButton.click();
     }
 
-    public boolean showEstimatedAmountThatCanBeBorrowed(){
+    public String showEstimatedAmountThatCanBeBorrowed(){
         WebElement estimatedBorrowAmount = driver.findElement(EstimatedBorrowAmount);
-        return estimatedBorrowAmount.isDisplayed();
-
-       // estimatedBorrowAmount.getText();
-
+        return estimatedBorrowAmount.getText();
     }
 
     public void clickStartOver(){

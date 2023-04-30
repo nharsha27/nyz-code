@@ -35,12 +35,20 @@ public class Calculator {
         driver.findElement(By.cssSelector("label[for='borrow_type_investment']")).click();
         driver.findElement(By.cssSelector("select[title='Number of dependants']")).sendKeys("4");
         driver.findElement(By.cssSelector("input[aria-describedby$='q2q1i1 q2q1i2']")).sendKeys("80000");
-        driver.findElement(By.cssSelector("input[aria-labelledby='q2q2']")).sendKeys("10000");
+        driver.findElement(By.cssSelector("input[aria-labelledby='q2q2']")).sendKeys("10005");
         driver.findElement(By.cssSelector("input[aria-labelledby='q3q1']")).sendKeys("500");
-        driver.findElement(By.cssSelector("input[aria-labelledby='q3q2']")).sendKeys("0");
+
+        // current home loan monthly repayment
+        driver.findElement(By.cssSelector("input[aria-labelledby='q3q2']")).sendKeys("20");
+
+        //Other loan monthly repayments
         driver.findElement(By.cssSelector("input[aria-labelledby='q3q3']")).sendKeys("100");
-        driver.findElement(By.cssSelector("input[aria-labelledby='q3q4']")).sendKeys("0");
-        driver.findElement(By.cssSelector("input[aria-labelledby='q3q5']")).sendKeys("10000");
+
+        //Other monthly commitments
+        driver.findElement(By.cssSelector("input[aria-labelledby='q3q4']")).sendKeys("30");
+
+        //Total credit card limits
+        driver.findElement(By.cssSelector("input[aria-labelledby='q3q5']")).sendKeys("10027");
 //System.out.println(driver.findElement(By.cssSelector("input[aria-labelledby='q3q5']")).getAttribute("value"));
 
      WebElement monthlyLiving = driver.findElement(By.cssSelector("input[aria-labelledby='q3q1']"));
@@ -49,7 +57,7 @@ public class Calculator {
      {
       System.out.println("True value: " +valueMonthlyLiving);
      }
-System.out.println("value exists : false");
+        System.out.println("value exists : false");
 
 
         driver.findElement(By.cssSelector("button#btnBorrowCalculater")).click();
