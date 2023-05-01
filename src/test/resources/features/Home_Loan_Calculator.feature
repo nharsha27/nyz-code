@@ -10,7 +10,14 @@
         When  I click on Work Out how much I could borrow button
         Then  Borrowing estimate is displayed on the screen "<result>"
         Examples:
-          | application type | Number of dependants | Property you would like to buy | Your annual income | Your annual other income | Monthly living expenses | Current home loan monthly repayments | Other loan monthly repayments | Other monthly commitments | Total Credit limits | result |
-          | "Single"         | 2                    | "Home in"                      | "80000"            | "10027"                  | "500"                   | "45"                                 | "100"                         | "50"                      | "10002"             | $281,000 |
+          | application type | Number of dependants | Property you would like to buy | Your annual income | Your annual other income | Monthly living expenses | Current home loan monthly repayments | Other loan monthly repayments | Other monthly commitments | Total Credit limits | result   |
+          | "Single"         | 2                    | "Home to live in"              | "$80000"           | "$10027"                 | "$500"                  | "$45"                                | "$100"                        | "$50"                     | "$10002"            | $296,000 |
+          | "Joint"          | 3                    | "Residential investment"       | "$80000"           | "$10027"                 | "$500"                  | "$45"                                | "$100"                        | "$50"                     | "$10002"            | $163,000 |
 
-
+    Scenario Outline:
+        Given I have entered person's living expense <Monthly living expenses>
+        When  I click on Work Out how much I could borrow button
+        Then  I get Borrow Error Message "<result>"
+        Examples:
+          | Monthly living expenses | result                                                                                                                                                          |
+          | "$1"                    | Based on the details you've entered, we're unable to give you an estimate of your borrowing power with this calculator. For questions, call us on 1800 035 500. |

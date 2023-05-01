@@ -4,15 +4,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
-import java.math.BigDecimal;
+import Exception.InvalidValuePassedException;
 import java.time.Duration;
+import static common.CommonConst.*;
 
-public class HowMuchICouldBorrowPage {
+public class HowMuchBorrowPage {
 
     private WebDriver driver;
     public static WebDriverWait wait;
@@ -21,8 +19,8 @@ public class HowMuchICouldBorrowPage {
     private By Single = By.cssSelector("label[for='application_type_single']");
     private By Joint = By.cssSelector("label[for='application_type_joint']");
     private By Number_of_dependents = By.cssSelector("select[title='Number of dependants']");
-    private By homeToLiveIn = By.cssSelector("label[for='borrow_type_home']");
-    private By residentialInvestment = By.cssSelector("label[for='borrow_type_investment']");
+    private By homeToLiveInProperty = By.cssSelector("label[for='borrow_type_home']");
+    private By residentialInvestmentProperty = By.cssSelector("label[for='borrow_type_investment']");
     private By yourAnnualIncomeBeforeTax =By.cssSelector("input[aria-describedby$='q2q1i1 q2q1i2']");
     private By yourAnnualOtherIncome =By.cssSelector("input[aria-labelledby='q2q2']");
     private By secondApplicantAnnualIncome  = By.cssSelector("input[aria-labelledby='q2q3']");
@@ -38,42 +36,48 @@ public class HowMuchICouldBorrowPage {
     private By StartOver = By.cssSelector("button[class='start-over']");
     private By ErrorText = By.cssSelector("div[class='borrow__error__text']");
 
-    public HowMuchICouldBorrowPage(WebDriver driver)
+    public HowMuchBorrowPage(WebDriver driver)
     {
-        ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*");
         WebDriverManager.chromedriver().setup();
         this.driver = driver;
     }
 
-    public  void selectApplicationType(String applicationType)
-    {
-        if(applicationType.equalsIgnoreCase("Single"))
+    public  void selectApplicationType(String applicationType) throws InvalidValuePassedException {
+
+        WebElement webElement = null;
+        if(applicationType.equalsIgnoreCase(SINGLE_APPLICATION_TYPE))
         {
-            WebElement singleType = driver.findElement(Single);
-            singleType.click();
+            webElement = driver.findElement(Single);
+            webElement.click();
+        }
+        else if(applicationType.equalsIgnoreCase(JOINT_APPLICATION_TYPE))
+        {
+            webElement = driver.findElement(Joint);
+            webElement.click();
         }
         else
         {
-            WebElement jointType = driver.findElement(Joint);
-            jointType.click();
+            throw new InvalidValuePassedException(INVALID_APPLICATION_TYPE);
         }
+
     }
     public  void setNumber_of_dependents(int dependents){
         WebElement numberOfDependents = driver.findElement(Number_of_dependents);
         numberOfDependents.sendKeys(String.valueOf(dependents));
     }
-    public  void selectPropertyType(String propertyType)
-    {
-        if(propertyType.equalsIgnoreCase("Home To Live In"))
-        {
-        WebElement homeVal = driver.findElement(homeToLiveIn);
+    public  void selectPropertyType(String propertyType) throws InvalidValuePassedException {
+        if(propertyType.equalsIgnoreCase(HOME_TO_LIVE_IN_PROPERTY_TYPE))
+        {            WebElement homeVal = driver.findElement(homeToLiveInProperty);
             homeVal.click();
+        }
+        else if(propertyType.equalsIgnoreCase(RESIDENTIAL_INVEST_PROPERTY_TYPE))
+        {
+            WebElement residentialVal = driver.findElement(residentialInvestmentProperty);
+            residentialVal.click();
         }
         else
         {
-            WebElement residentialVal = driver.findElement(residentialInvestment);
-            residentialVal.click();
+            throw new InvalidValuePassedException(INVALID_PROPERTY_TYPE);
         }
     }
 
@@ -97,10 +101,10 @@ public class HowMuchICouldBorrowPage {
         WebElement monthlyExpenseElement = driver.findElement(monthlyLivingExpense);
         monthlyExpenseElement.sendKeys(monthlyExpense);
     }
-    /*public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
-       WebElement monthlyExpense = driver.findElement(monthlyLivingExpenses);
+    public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
+       WebElement monthlyExpense = driver.findElement(monthlyLivingExpense);
         return  monthlyExpense.getAttribute("value").equals("0") ;
-    }*/
+    }
     public  void enterCurrentHomeLoanMonthlyRepayments(String homeLoanRepayment){
         WebElement currentHomeLoanRepaymentElement = driver.findElement(homeLoanMonthlyRepayments);
         currentHomeLoanRepaymentElement.sendKeys(String.valueOf(homeLoanRepayment));
