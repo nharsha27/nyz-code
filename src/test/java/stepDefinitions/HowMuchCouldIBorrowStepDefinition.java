@@ -1,7 +1,7 @@
 package stepDefinitions;
 
 
-import TestComponents.BaseTest;
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -16,7 +16,7 @@ import Exception.InvalidValuePassedException;
 import java.text.ParseException;
 import util.TestUtil;
 
-public class HowMuchCouldIBorrowStepDefinition extends BaseTest {
+public class HowMuchCouldIBorrowStepDefinition {
     private WebDriver driver;
     private HowMuchICouldBorrowPage howMuchICouldBorrowPage;
 
@@ -83,16 +83,6 @@ public class HowMuchCouldIBorrowStepDefinition extends BaseTest {
         String result = howMuchICouldBorrowPage.checkErrorMessage();
         Assert.assertEquals(input,result);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }
