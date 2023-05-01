@@ -10,8 +10,8 @@ Feature: Calculate How much I could borrow?
     When  I click on Work Out how much I could borrow button
     Then  Borrowing estimate is displayed on the screen "<result>"
     Examples:
-      | application type | Number of dependants | Property you would like to buy | Your annual income | Your annual other income | Monthly living expenses | Current home loan monthly repayments | Other loan monthly repayments | Other monthly commitments | Total Credit limits | result |
-      | "Single"         | 2                    | "Home in"                      | "80000"            | "10027"                  | "500"                   | "45"                                 | "100"                         | "50"                      | "10002"             | $281,000 |
+      | application type | Number of dependants | Property you would like to buy | Your annual income | Your annual other income | Monthly living expenses | Current home loan monthly repayments | Other loan monthly repayments | Other monthly commitments | Total Credit limits | result   |
+      | "Single"         | 0                    | "Home To Live In"              | "80000"            | "10000"                  | "500"                   | "0"                                  | "100"                         | "0"                       | "10002"             | $415,000 |
 
 
   Scenario Outline: Entering on monthly details

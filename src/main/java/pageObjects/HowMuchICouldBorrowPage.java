@@ -1,6 +1,8 @@
 package pageObjects;
 
 import AbstractComponents.AbstractComponents;
+
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +10,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import Exception.InvalidValuePassedException;
 import java.time.Duration;
+import static common.CommonConst.*;
+
+
 
 public class  HowMuchICouldBorrowPage extends AbstractComponents {
     private WebDriver driver;
@@ -71,16 +76,24 @@ public class  HowMuchICouldBorrowPage extends AbstractComponents {
     @FindBy(css = "div[class='borrow__error__text']")
     WebElement ErrorText;
 
-    public void selectApplicationType(String applicationType) {
-        if (applicationType.equalsIgnoreCase("Single"))
+    public  void selectApplicationType(String applicationType) throws InvalidValuePassedException {
+
+        WebElement webElement = null;
+        if(applicationType.equalsIgnoreCase(SINGLE_APPLICATION_TYPE))
         {
             Single.click();
         }
-        else
+        else if(applicationType.equalsIgnoreCase(JOINT_APPLICATION_TYPE))
         {
             Joint.click();
         }
+        else
+        {
+            throw new InvalidValuePassedException(INVALID_APPLICATION_TYPE);
+        }
+
     }
+
 
     public void goTo()
     {
@@ -92,12 +105,22 @@ public class  HowMuchICouldBorrowPage extends AbstractComponents {
         Number_of_dependents.sendKeys(String.valueOf(dependents));
     }
 
-    public void selectPropertyType(String propertyType) {
-        if (propertyType.equalsIgnoreCase("Home To Live In")) {
+    public  void selectPropertyType(String propertyType) throws InvalidValuePassedException {
+
+        WebElement webElement = null;
+        if(propertyType.equalsIgnoreCase(HOME_TO_LIVE_IN_PROPERTY_TYPE))
+        {
             HomeToLiveIn.click();
-        } else {
+        }
+        else if(propertyType.equalsIgnoreCase(RESIDENTIAL_INVEST_PROPERTY_TYPE))
+        {
             residentialInvestment.click();
         }
+        else
+        {
+            throw new InvalidValuePassedException(INVALID_PROPERTY_TYPE);
+        }
+
     }
     public  void enterYourAnnualIncome(String annualIncome)
     {
@@ -142,11 +165,8 @@ public class  HowMuchICouldBorrowPage extends AbstractComponents {
 
     public String showEstimatedAmountThatCanBeBorrowed(){
 
-        // return EstimatedBorrowAmount.isDisplayed();
+
         return EstimatedBorrowAmount.getText();
-
-
-        // estimatedBorrowAmount.getText();
 
     }
 

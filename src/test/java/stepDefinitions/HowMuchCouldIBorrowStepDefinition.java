@@ -1,19 +1,21 @@
 package stepDefinitions;
 
+
+import TestComponents.BaseTest;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import pageObjects.HowMuchICouldBorrowPage;
+import Exception.InvalidValuePassedException;
 
-import java.time.Duration;
+import java.text.ParseException;
+import util.TestUtil;
 
-public class HowMuchCouldIBorrowStepDefinition {
+public class HowMuchCouldIBorrowStepDefinition extends BaseTest {
     private WebDriver driver;
     private HowMuchICouldBorrowPage howMuchICouldBorrowPage;
 
@@ -21,26 +23,22 @@ public class HowMuchCouldIBorrowStepDefinition {
     @Before
     public void setup()
     {
-        ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*");
-
-          WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver(option);
+        this.driver = TestUtil.setChromeDriver();
     }
+
 
 
     @Given("I landed on Calculate How much I could borrow page")
     public void i_landed_on_calculate_how_much_i_could_borrow_page() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
+
+
 
         driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
 
     }
 
     @Given("I have entered person's following details: {string},  {int},  {string} ,{string}, {string}, {string}, {string}, {string}, {string}, {string}")
-    public void i_have_entered_person_s_following_details(String applicationType, Integer NumberOfDependants, String propertyType, String annualIncome, String annualOtherIncome, String MonthlyLivingExpenses, String CurrentHomeLoanMonthlyRepayments, String OtherLoanMonthlyRepayments, String OtherMonthlyCommitments, String TotalCreditCardLimits)
+    public void i_have_entered_person_s_following_details(String applicationType, Integer NumberOfDependants, String propertyType, String annualIncome, String annualOtherIncome, String MonthlyLivingExpenses, String CurrentHomeLoanMonthlyRepayments, String OtherLoanMonthlyRepayments, String OtherMonthlyCommitments, String TotalCreditCardLimits) throws ParseException, InvalidValuePassedException
     {
         howMuchICouldBorrowPage = new HowMuchICouldBorrowPage(driver);
         howMuchICouldBorrowPage.selectApplicationType(applicationType);
@@ -81,6 +79,7 @@ public class HowMuchCouldIBorrowStepDefinition {
         String result = howMuchICouldBorrowPage.checkErrorMessage();
         Assert.assertEquals(input,result);
     }
+
 
 
 
