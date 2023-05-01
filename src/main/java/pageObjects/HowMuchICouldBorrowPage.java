@@ -45,7 +45,11 @@ public class HowMuchICouldBorrowPage {
         WebDriverManager.chromedriver().setup();
         this.driver = driver;
     }
+    public void goTo()
+    {
+        driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
 
+    }
     public  void selectApplicationType(String applicationType)
     {
         if(applicationType.equalsIgnoreCase("Single"))
