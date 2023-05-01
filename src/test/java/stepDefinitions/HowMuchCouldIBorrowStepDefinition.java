@@ -77,7 +77,7 @@ public class HowMuchCouldIBorrowStepDefinition {
     }
     @Then("Borrowing Error is displayed : {string}")
     public void borrowing_error_is_displayed(String input) throws InterruptedException {
-        Thread.sleep(5000);
+
         String result = howMuchICouldBorrowPage.checkErrorMessage();
         Assert.assertEquals(input,result);
     }

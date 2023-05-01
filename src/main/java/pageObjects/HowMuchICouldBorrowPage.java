@@ -158,6 +158,7 @@ public class  HowMuchICouldBorrowPage extends AbstractComponents {
 
 
     public String checkErrorMessage(){
+        visibilityOfElementLocated(By.cssSelector("div[class='borrow__error__text']"));
         String error = ErrorText.getText();
         return error;
     }
