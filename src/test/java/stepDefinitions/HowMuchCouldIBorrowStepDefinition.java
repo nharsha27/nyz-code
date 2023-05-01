@@ -2,6 +2,7 @@ package stepDefinitions;
 
 
 import TestComponents.BaseTest;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -26,11 +27,14 @@ public class HowMuchCouldIBorrowStepDefinition extends BaseTest {
         this.driver = TestUtil.setChromeDriver();
     }
 
-
+    @After
+    public void tearDown()
+    {
+    driver.quit();
+    }
 
     @Given("I landed on Calculate How much I could borrow page")
     public void i_landed_on_calculate_how_much_i_could_borrow_page() {
-
 
 
         driver.get("https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/");
