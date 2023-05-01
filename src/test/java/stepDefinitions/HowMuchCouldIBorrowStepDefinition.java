@@ -17,13 +17,8 @@ import java.math.BigDecimal;
 import java.time.Duration;
 
 public class HowMuchCouldIBorrowStepDefinition {
-     WebDriver driver;
+    private WebDriver driver;
     private HowMuchICouldBorrowPage howMuchICouldBorrowPage;
-
-    public HowMuchCouldIBorrowStepDefinition(WebDriver driver) {
-        this.driver = driver;
-    }
-
 
     @Before
     public void setup()
@@ -91,7 +86,7 @@ public class HowMuchCouldIBorrowStepDefinition {
     @Given("I have entered person's following details:{string}")
     public void i_have_entered_persons_following_details(String MonthlyLivingExpenses)throws InterruptedException
     {
-
+        howMuchICouldBorrowPage = new HowMuchICouldBorrowPage(driver);
         howMuchICouldBorrowPage.enterMonthlyLivingExpenses(MonthlyLivingExpenses);
 
     }

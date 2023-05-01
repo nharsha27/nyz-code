@@ -40,8 +40,6 @@ public class HowMuchICouldBorrowPage {
 
     public HowMuchICouldBorrowPage(WebDriver driver)
     {
-        ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*");
         WebDriverManager.chromedriver().setup();
         this.driver = driver;
     }
