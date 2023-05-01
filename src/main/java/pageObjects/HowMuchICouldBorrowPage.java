@@ -101,10 +101,7 @@ public class HowMuchICouldBorrowPage {
         WebElement monthlyExpenseElement = driver.findElement(monthlyLivingExpense);
         monthlyExpenseElement.sendKeys(monthlyExpense);
     }
-    /*public  boolean checkIfMonthlyLivingExpensesIsEmpty(){
-       WebElement monthlyExpense = driver.findElement(monthlyLivingExpenses);
-        return  monthlyExpense.getAttribute("value").equals("0") ;
-    }*/
+
     public  void enterCurrentHomeLoanMonthlyRepayments(String homeLoanRepayment){
         WebElement currentHomeLoanRepaymentElement = driver.findElement(homeLoanMonthlyRepayments);
         currentHomeLoanRepaymentElement.sendKeys(String.valueOf(homeLoanRepayment));
